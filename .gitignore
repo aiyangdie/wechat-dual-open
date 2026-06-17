@@ -1,0 +1,14 @@
+# Build artifacts
+w64devkit/
+w64devkit-installer.exe
+wx_dual.res
+_deploy.py
+*.o
+
+# Old C# build (optional local)
+WxDual.cs.exe
+
+# Secrets
+.env
+*.pat
+*_token*
