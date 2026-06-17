@@ -21,9 +21,11 @@ GitHub 语言条可能显示 PowerShell / Python，是因为这些**构建脚本
 
 直接运行（推荐）：
 
-- [releases/双开微信.exe](releases/双开微信.exe) — 约 155 KB，双击即可
+- [Releases 下载 WxDual.exe](https://github.com/aiyangdie/wechat-dual-open/releases/latest) — 约 155 KB，即「双开微信」，双击即可
 
-或编译目录中的 `WxDual.exe`（与发布版相同）。
+或仓库内：
+
+- [releases/双开微信.exe](releases/双开微信.exe) — 与 Release 附件相同
 
 ## 功能
 
