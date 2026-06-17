@@ -1,0 +1,11 @@
+# GitHub 语言统计：主项目是 C，构建脚本与发布文件不计入
+build_c.ps1 linguist-vendored
+make_user_icon.py linguist-vendored
+*.ps1 linguist-vendored
+*.py linguist-vendored
+releases/** linguist-vendored
+assets/** linguist-vendored
+LICENSE linguist-vendored
+*.exe linguist-generated
+*.ico linguist-generated
+*.png linguist-generated

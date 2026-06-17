@@ -1,12 +1,18 @@
-# Build artifacts
-w64devkit/
-w64devkit-installer.exe
+# Build output (not published; see releases/)
+WxDual.exe
 wx_dual.res
 _deploy.py
+w64devkit/
+w64devkit-installer.exe
 *.o
 
-# Old C# build (optional local)
-WxDual.cs.exe
+# Legacy / local only
+DualWeChat.cs
+build.ps1
+extract_weixin_ico.py
+rcedit.exe
+wechat-dual.ico
+weixin-native.ico
 
 # Secrets
 .env

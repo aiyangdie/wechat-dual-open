@@ -4,6 +4,19 @@ Windows 便携版微信双开启动器：C 语言编写，单文件 exe，无需
 
 ![icon](assets/icon-preview.png)
 
+## 项目说明
+
+**主程序是 C 语言**（`wx_dual.c`），面向 Windows Win32 API。
+
+仓库里还有少量 **辅助文件**（不算主代码）：
+
+| 文件 | 作用 |
+|------|------|
+| `build_c.ps1` | 一键编译（自动下载 GCC） |
+| `make_user_icon.py` | 从 PNG 生成 ICO（仅编译图标时用） |
+
+GitHub 语言条可能显示 PowerShell / Python，是因为这些**构建脚本**也被统计了；已用 `.gitattributes` 标记为辅助文件，刷新后应以 **C** 为主。
+
 ## 下载
 
 直接运行（推荐）：
@@ -60,11 +73,12 @@ gcc -O2 -s -mwindows -municode wx_dual.c wx_dual.res -o WxDual.exe -lshlwapi -ls
 
 | 文件 | 说明 |
 |------|------|
-| `wx_dual.c` | 主程序（查找微信路径、启动两次） |
+| `wx_dual.c` | **主程序**（C / Win32） |
 | `wx_dual.rc` | 图标资源定义 |
-| `make_user_icon.py` | 从 PNG 生成多尺寸 `user-dual.ico` |
-| `user-dual.ico` | 程序图标（16～256 多档） |
-| `build_c.ps1` | 一键编译脚本 |
+| `assets/icon-source.png` | 图标原图 |
+| `assets/user-dual.ico` | 程序图标（16～256） |
+| `build_c.ps1` | 一键编译脚本（辅助） |
+| `make_user_icon.py` | 图标生成脚本（辅助） |
 | `releases/双开微信.exe` | 发布用可执行文件 |
 
 ## 查找的微信路径

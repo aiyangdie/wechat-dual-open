@@ -49,17 +49,20 @@ $ec = $LASTEXITCODE
 Pop-Location
 if ($ec -ne 0) { throw "gcc build failed" }
 
+$releases = Join-Path $here "releases"
+New-Item -ItemType Directory -Force -Path $releases | Out-Null
+Copy-Item -Force (Join-Path $here "WxDual.exe") (Join-Path $releases "WxDual.exe")
+
 $deployScript = @'
 from pathlib import Path
 import shutil
 root = Path(__file__).resolve().parent
 src = root / "WxDual.exe"
-dst = Path.home() / "Desktop" / "双开微信.exe"
-shutil.copy2(src, dst)
-lnk = Path.home() / "Desktop" / "双开微信.lnk"
-if lnk.exists():
-    lnk.unlink()
-print("deployed", dst.stat().st_size)
+rel = root / "releases" / "双开微信.exe"
+shutil.copy2(src, rel)
+desk = Path.home() / "Desktop" / "双开微信.exe"
+shutil.copy2(src, desk)
+print("releases", rel.stat().st_size)
 '@
 $tmp = Join-Path $here "_deploy.py"
 [System.IO.File]::WriteAllText($tmp, $deployScript, [System.Text.UTF8Encoding]::new($false))
