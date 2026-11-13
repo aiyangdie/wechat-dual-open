@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/covers/06-wechat-dual-open.jpg" alt="wechat-dual-open 项目封面" width="100%"></p>
+
 # 双开微信 (WeChat Dual Open)
 
 Windows 便携版微信双开启动器：C 语言编写，单文件 exe，无需安装。
