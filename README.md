@@ -1,89 +1,58 @@
-<p align="center"><img src="assets/covers/06-wechat-dual-open.jpg" alt="wechat-dual-open 项目封面" width="100%"></p>
+<p align="center"><img src="assets/covers/06-wechat-dual-open.jpg" alt="微信双开 项目封面" width="100%"></p>
 
-# 双开微信 (WeChat Dual Open)
+<h1 align="center">双开微信 · WeChat Dual Open</h1>
 
-Windows 便携版微信双开启动器：C 语言编写，单文件 exe，无需安装。
+<p align="center">C 语言编写的 Windows 便携版双开启动器，单文件 exe，约 155 KB</p>
 
-![icon](assets/icon-preview.png)
+<p align="center">
+  <a href="https://github.com/aiyangdie/wechat-dual-open/releases/latest">下载 WxDual.exe</a> ·
+  <a href="LICENSE">MIT 许可</a>
+</p>
 
-## 项目说明
+## 简介
 
-**主程序是 C 语言**（`wx_dual.c`），面向 Windows Win32 API。
-
-仓库里还有少量 **辅助文件**（不算主代码）：
-
-| 文件 | 作用 |
-|------|------|
-| `build_c.ps1` | 一键编译（自动下载 GCC） |
-| `make_user_icon.py` | 从 PNG 生成 ICO（仅编译图标时用） |
-
-GitHub 语言条可能显示 PowerShell / Python，是因为这些**构建脚本**也被统计了；已用 `.gitattributes` 标记为辅助文件，刷新后应以 **C** 为主。
-
-## 下载
-
-直接运行（推荐）：
-
-- [Releases 下载 WxDual.exe](https://github.com/aiyangdie/wechat-dual-open/releases/latest) — 约 155 KB，即「双开微信」，双击即可
-
-或仓库内：
-
-- [releases/双开微信.exe](releases/双开微信.exe) — 与 Release 附件相同
+面向 Windows 的微信双开小工具，主程序是纯 Win32 的 C 代码（`wx_dual.c`），编译后约 150 KB。仓库里另有编译脚本和图标生成脚本，属于辅助文件，不参与运行。
 
 ## 功能
 
-- 自动查找本机 **Weixin.exe** / **WeChat.exe**
-- 间隔 800ms 连续启动两次，尝试双开
-- 无控制台黑窗口
-- 内置高清多尺寸图标
+- 自动查找本机 `Weixin.exe` / `WeChat.exe`
+- 间隔 800 ms 连续启动两次，尝试双开
+- `-mwindows` 编译，运行时无控制台黑窗
+- 内置 16–256 多尺寸高清图标
 
-## 使用方法
+## 使用
 
-1. 下载 `双开微信.exe` 到桌面或任意文件夹
+1. 下载 `WxDual.exe` 放到桌面或任意目录
 2. 双击运行
-3. 若只弹出一个微信窗口：说明当前微信版本已启用互斥锁，脚本无法绕过（非程序 bug）
+3. 若只弹出一个窗口，说明当前微信版本已启用互斥锁，脚本无法绕过，这不是程序缺陷
 
 ## 自行编译
 
-### 环境
-
-- Windows 10 / 11
-- PowerShell
-- Python 3（仅用于生成 ICO，可用 [Hermes](https://github.com/) 自带 venv 或系统 Python）
-
-首次编译会自动下载便携 GCC（[w64devkit](https://github.com/skeeto/w64devkit)），约 60MB，仅编译时需要。
-
-### 步骤
+环境：Windows 10/11 + PowerShell；生成图标需要 Python 3。首次编译会自动下载便携 GCC（[w64devkit](https://github.com/skeeto/w64devkit)，约 60 MB）。
 
 ```powershell
-cd wechat-dual-open
 powershell -ExecutionPolicy Bypass -File build_c.ps1
 ```
 
-产物：
-
-- `WxDual.exe` — 项目目录内
-- 桌面 `双开微信.exe` — 自动复制（若路径编码正常）
-
-### 手动编译
+手动编译：
 
 ```powershell
 python make_user_icon.py
-# 需已安装 w64devkit，并将 bin 加入 PATH
 windres wx_dual.rc -O coff -o wx_dual.res
 gcc -O2 -s -mwindows -municode wx_dual.c wx_dual.res -o WxDual.exe -lshlwapi -lshell32
 ```
 
 ## 项目结构
 
-| 文件 | 说明 |
-|------|------|
-| `wx_dual.c` | **主程序**（C / Win32） |
-| `wx_dual.rc` | 图标资源定义 |
-| `assets/icon-source.png` | 图标原图 |
-| `assets/user-dual.ico` | 程序图标（16～256） |
-| `build_c.ps1` | 一键编译脚本（辅助） |
-| `make_user_icon.py` | 图标生成脚本（辅助） |
-| `releases/双开微信.exe` | 发布用可执行文件 |
+```
+wx_dual.c               主程序（C / Win32）
+wx_dual.rc              图标资源定义
+assets/icon-source.png  图标原图
+assets/user-dual.ico    程序图标
+build_c.ps1             一键编译
+make_user_icon.py       图标生成
+releases/双开微信.exe    发布用可执行文件
+```
 
 ## 查找的微信路径
 
@@ -93,21 +62,10 @@ gcc -O2 -s -mwindows -municode wx_dual.c wx_dual.res -o WxDual.exe -lshlwapi -ls
 4. `C:\Program Files (x86)\Tencent\WeChat\WeChat.exe`
 5. `%LOCALAPPDATA%\Programs\Tencent\WeChat\WeChat.exe`
 
-## 技术说明
-
-- 语言：C（Win32 API）
-- 链接：`shlwapi`、`shell32`
-- 图标：`windres` 嵌入 `user-dual.ico`
-- 体积：编译后约 150 KB（含图标资源）
-
 ## 免责声明
 
-本工具仅用于在个人电脑上同时启动两个微信客户端实例。请遵守微信用户协议与当地法律法规。作者不对因使用本工具产生的任何问题负责。
+仅用于在个人电脑上同时启动两个微信客户端实例。请遵守微信用户协议与当地法律法规，作者不对使用后果负责。
 
-## 作者
+## 许可证
 
-- GitHub: [@aiyangdie](https://github.com/aiyangdie)
-
-## License
-
-MIT License — 见 [LICENSE](LICENSE)
+[MIT](LICENSE) ｜ [aiyangdie](https://github.com/aiyangdie)
